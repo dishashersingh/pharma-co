@@ -9,6 +9,6 @@ numpy
 fuzzywuzzy
 python-Levenshtein
 spacy
-https://github.com/kormilitzin/med7/releases/download/v0.0.2/en_core_med7_lg.tar.gz
+
 
 
