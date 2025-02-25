@@ -6,3 +6,6 @@ pytesseract
 opencv-python
 pillow
 numpy
+fuzzywuzzy
+python-Levenshtein
+
