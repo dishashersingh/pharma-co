@@ -7,8 +7,10 @@ from fuzzywuzzy import process
 import spacy
 from PIL import Image
 import shutil
+import os
+import uvicorn
 
-# Load the medical Named Entity Recognition (NER) model
+# Load NLP Model
 try:
     nlp = spacy.load("en_core_med7_lg")
 except:
@@ -38,20 +40,28 @@ def identify_drug(extracted_text):
         match, score = process.extractOne(word, drug_list)
         if score > 75:
             identified_drugs.append(match)
-    
+
     doc = nlp(extracted_text)
     ner_drugs = [ent.text for ent in doc.ents if ent.label_ == "DRUG"]
     filtered_ner_drugs = [drug for drug in ner_drugs if process.extractOne(drug, drug_list)[1] > 75]
-    
+
     return list(set(identified_drugs + filtered_ner_drugs))
+
+@app.get("/")
+def home():
+    return {"message": "Hello, Render is working with OCR!"}
 
 @app.post("/upload/")
 async def upload_file(file: UploadFile = File(...)):
     file_path = f"./{file.filename}"
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
-    
+
     extracted_text = extract_text(file_path)
     identified_drugs = identify_drug(extracted_text)
-    
+
     return {"text": extracted_text, "drugs": identified_drugs}
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
