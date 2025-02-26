@@ -114,7 +114,7 @@ const Cart = ({ cart, setCart }) => {
           cart.map((item, index) => (
             <div key={index} className="flex justify-between items-center border-b pb-4 mb-4">
               <div className="w-2/3">
-                <p className="text-lg font-semibold">${item.price} - {item.name}</p>
+                <p className="text-lg font-semibold">₹{item.price} - {item.name}</p>
                 <p className="text-gray-500">Quantity: {item.quantity}</p>
 
                 
@@ -148,15 +148,15 @@ const Cart = ({ cart, setCart }) => {
             <>
               <p className="flex justify-between">
                 <span>Subtotal:</span> 
-                <span>${cart.reduce((sum, item) => sum + item.quantity * item.price, 0).toFixed(2)}</span>
+                <span>₹{cart.reduce((sum, item) => sum + item.quantity * item.price, 0).toFixed(2)}</span>
               </p>
               <p className="flex justify-between">
                 <span>Tax (10%):</span> 
-                <span>${(cart.reduce((sum, item) => sum + item.quantity * item.price, 0) * 0.1).toFixed(2)}</span>
+                <span>₹{(cart.reduce((sum, item) => sum + item.quantity * item.price, 0) * 0.1).toFixed(2)}</span>
               </p>
               <p className="flex justify-between font-bold">
                 <span>Total:</span> 
-                <span>${(cart.reduce((sum, item) => sum + item.quantity * item.price, 0) * 1.1).toFixed(2)}</span>
+                <span>₹{(cart.reduce((sum, item) => sum + item.quantity * item.price, 0) * 1.1).toFixed(2)}</span>
               </p>
             </>
           ) : (
