@@ -7,12 +7,12 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:5000", 
+        target: "https://pharma-co-backend.onrender.com", 
         changeOrigin: true,
         secure: false,
       },
       "/vpi": {  
-        target: "http://127.0.0.1:8000",
+        target: "https://pharma-co-ml-s.onrender.com",
         changeOrigin: true,
         secure: false,
       },
